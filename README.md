@@ -1,4 +1,4 @@
-# docker-golang-glide-command
+# docker-golang-dep-command
 Thiis is a simple golang command by using docker to drive.
 
 ## Advantage
@@ -49,44 +49,54 @@ $ ./drive.sh installLinux {dir path OR ./...}
 $ ./drive.sh installWindow {dir path OR ./...}
 ```
 
-#### glide command
+#### dep command
 ```bash
-$ ./vendor.sh glide {command}
+$ ./vendor.sh dep {command}
 ```
 
-#### glide init command
+#### dep init command
 ```bash
 $ ./vendor.sh init
 ```
 
-#### glide get command
+#### dep status command
 ```bash
-$ ./vendor.sh get {url}
+$ ./vendor.sh status
 ```
 
-#### glide install command
+#### dep ensure command
 ```bash
-$ ./vendor.sh install
+$ ./vendor.sh ensure
 ```
 
-#### glide list command
+#### dep add command
 ```bash
-$ ./vendor.sh list
+$ ./vendor.sh add {package name}
 ```
 
-#### glide update command
+#### dep update command
 ```bash
-$ ./vendor.sh update
+$ ./vendor.sh update {package name}
 ```
 
-#### glide rebuild command
+#### dep prune command
 ```bash
-$ ./vendor.sh rebuild
+$ ./vendor.sh prune
 ```
 
-#### glide help command
+#### dep version command
 ```bash
-$ ./vendor.sh help
+$ ./vendor.sh version
 ```
 
+## Point
+
+#### set .env file
+1. change .env.example to .env
+2. add PROJECT_NAME in .env
+3. PROJECT_NAME is ./src/{project(include main.go) folder name}
+4. init dep
+```bash
+$ ./vendor.sh init
+```
 

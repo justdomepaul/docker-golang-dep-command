@@ -27,7 +27,7 @@ function fmt() { #cmd docker-compose run --rm golang go get {dir path OR ./...}
 }
 
 function run() { #cmd docker-compose run --rm golang go run {file path}
-    docker-compose run --rm golang go fmt $@ && docker-compose run --rm golang go run $@
+    docker-compose run --rm golang go fmt $@ && docker-compose run --rm golang env GO15VENDOREXPERIMENT=1 go run $@
 }
 
 function test() { #cmd docker-compose run --rm golang go test {test dir path OR ./...}

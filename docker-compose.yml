@@ -8,5 +8,5 @@ services:
   dep:
     image: instrumentisto/dep:alpine
     volumes:
-      - .:/go/src/my/pkg/name
-    working_dir: /go/src/my/pkg/name
+      - ./src/${PROJECT_NAME}:/go/src/${PROJECT_NAME}
+    working_dir: /go/src/${PROJECT_NAME}
