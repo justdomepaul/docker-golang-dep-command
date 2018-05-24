@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  golang:
+    image: golang:1.9.6
+    volumes:
+      - .:/go
+  dep:
+    image: instrumentisto/dep:alpine
+    volumes:
+      - .:/go/src/my/pkg/name
+    working_dir: /go/src/my/pkg/name
