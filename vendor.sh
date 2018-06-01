@@ -1,7 +1,24 @@
 #!/usr/bin/env bash
 set -e
 cd $( cd $(dirname $0) ; pwd -P )
-[ -f .env ] && export $(cat .env | xargs) || echo "there is no .env, skip"
+
+ENV=".env"
+while getopts "e:" OPTION
+do
+     case $OPTION in
+         e)
+            ENV=$OPTARG
+            shift
+            shift
+            ;;
+         ?)
+            usage
+            exit
+            ;;
+     esac
+done
+
+[ -f $ENV ] && export $(cat $ENV | xargs) || echo "there is no .env, skip"
 
 function usage () {
 	cat <<EOS
