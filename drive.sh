@@ -17,6 +17,7 @@ do
             ;;
      esac
 done
+
 [ -f $ENV ] && export $(cat $ENV | xargs) || echo "there is no .env, skip"
 
 function usage () {
@@ -30,35 +31,47 @@ EOS
 	    | awk '{CMD=$1; $1=""; printf "\t%-16s%s\n", CMD, $0}'
 }
 
-function go() { #cmd docker-compose run --rm golang go {golang subcommand }
-    docker-compose run --rm golang go $@
-}
-
-function get() { #cmd docker-compose run --rm golang go get {package url}
-    docker-compose run --rm golang go get $@
-}
-
-function fmt() { #cmd docker-compose run --rm golang go get {dir path OR ./...}
+function fmt() {
     docker-compose run --rm golang go fmt $@
 }
 
-function run() { #cmd docker-compose run --rm golang go run {file path}
+function go () { #cmd docker-compose run --rm golang go
+    docker-compose run --rm golang go $@
+}
+
+function get () { #cmd docker-compose run --rm golang go get {url}
+    docker-compose run --rm golang go get $@
+}
+
+function run () { #cmd docker-compose run --rm golang go run {go file path}
     docker-compose run --rm golang go fmt $@ && docker-compose run --rm golang env GO15VENDOREXPERIMENT=1 go run $@
 }
 
-function test() { #cmd docker-compose run --rm golang go test {test dir path OR ./...}
+function test () { #cmd docker-compose run --rm golang go test {go test dir path}
     docker-compose run --rm golang go fmt $@ && docker-compose run --rm golang go test $@
 }
 
-function installMac() { #cmd docker-compose run --rm golang go install {dir path OR ./...}
+function installMac () { #cmd docker-compose run --rm golang go install {go dir path}
     docker-compose run --rm golang go clean && docker-compose run --rm golang env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go install $@
 }
 
-function installLinux() { #cmd docker-compose run --rm golang go install {dir path OR ./...}
+function installLinux () { #cmd docker-compose run --rm golang go install {go dir path}
     docker-compose run --rm golang go clean && docker-compose run --rm golang env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install $@
 }
 
-function installWindow() { #cmd docker-compose run --rm golang go install -o {dir path OR ./...}
+function installLinux386 () { #cmd docker-compose run --rm golang go install {go dir path}
+    docker-compose run --rm golang go clean && docker-compose run --rm golang env CGO_ENABLED=0 GOOS=linux GOARCH=386 go install $@
+}
+
+function installLinuxArm () { #cmd docker-compose run --rm golang go install {go dir path}
+    docker-compose run --rm golang go clean && docker-compose run --rm golang env GOOS=linux GOARCH=arm GOARM=7 go install $@
+}
+
+function installLinuxArm64 () { #cmd docker-compose run --rm golang go install {go dir path}
+    docker-compose run --rm golang go clean && docker-compose run --rm golang env GOOS=linux GOARCH=arm64 GOARM=7 go install $@
+}
+
+function installWindow () { #cmd docker-compose run --rm golang go install -o {go dir path}
     docker-compose run --rm golang go clean && docker-compose run --rm golang env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go install $@
 }
 
